@@ -1,4 +1,4 @@
-from sympy import symbols, diff
+from sympy import symbols, diff, Abs
 
 def reglaTrapecio(a, b, f, n):
     x = symbols('x')
@@ -12,18 +12,17 @@ def reglaTrapecio(a, b, f, n):
     segundaDerivada = diff(f(x), x, 2)
 
     puntoEvaluacion = (a + b) / 2
-    valor_segunda_derivada = segundaDerivada.subs(x, puntoEvaluacion)
+    valorSegundaDerivada = segundaDerivada.subs(x, puntoEvaluacion)
 
-    error = -((b - a) * h**2 / 12) * valor_segunda_derivada
+    error = Abs(-((b - a) * h**2 / 12) * valorSegundaDerivada)
 
     return resultado, error 
 
 def f(x):
-    return -x**2 + 6*x - 4
-
-a = 1
-b = 4
-n = 3
+    return 1 + x**3
+a = 0
+b = 2
+n = 10
 
 aproximacionIntegral, e = reglaTrapecio(a, b, f, n)
 print("Aproximación de la integral:", aproximacionIntegral, "con un error de: ", e)
